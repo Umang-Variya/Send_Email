@@ -1,0 +1,289 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Send email task",
+    "version": "1.0.0",
+    "description": "Send email task"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3001/api/users/"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "Authorization": {
+        "type": "http",
+        "scheme": "bearer",
+        "in": "header"
+      }
+    }
+  },
+  "security": [
+    {
+      "Authorization": []
+    }
+  ],
+  "schemes": ["http"],
+
+  "host": "localhost:3001/api/users",
+  "paths": {
+    "/register": {
+      "post": {
+        "summary": "Registration and send email",
+        "description": "Registration and send email",
+        "produces": ["application/json"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "firstName": {
+                    "type": "string",
+                    "example": "XYZ"
+                  },
+                  "lastName": {
+                    "type": "string",
+                    "example": "ABC"
+                  },
+                  "gender": {
+                    "type": "string",
+                    "example": "male"
+                  },
+                  "ph_no": {
+                    "type": "string",
+                    "example": "9878451256"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "xyz@gmail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "Xyz123"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "signUp Successfull & An Email sent to your account please verify",
+            "content": {
+              "application/json": { "type": "string" }
+            }
+          },
+
+          "400": {
+            "description": "User with given email already exist!"
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "summary": "Get all user data",
+        "description": "Get all user data",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/verify/{id}/{token}": {
+      "get": {
+        "summary": "Verify user email",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "token",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Your account has been successfully verified"
+          },
+          "400": {
+            "description": "User has been already verified. Please Login AND Your verification link may have expired. Please click on resend for verify your Email."
+          },
+          "401": {
+            "description": "We were unable to find a user for this verification. Please SignUp!"
+          }
+        }
+      }
+    },
+    "/test": {
+      "get": {
+        "summary": "Aggregate",
+        "description": "Aggregate",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/lookup": {
+      "get": {
+        "summary": "Lookup",
+        "description": "Lookup",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/forgot": {
+      "post": {
+        "summary": "Forgot password!!",
+        "description": "Forgot password",
+        "produces": ["application/json"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "xyz@gmail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "Xyz123"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Your password successfully changed!!",
+            "content": {
+              "application/json": { "type": "string" }
+            }
+          },
+
+          "400": {
+            "description": "User with given email already exist!"
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "summary": "login",
+        "description": "Login",
+        "produces": ["application/json"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "xyz@gmail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "Xyz123"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Your password successfully changed!!",
+            "content": {
+              "application/json": { "type": "string" }
+            }
+          },
+
+          "400": {
+            "description": "User with given email already exist!"
+          }
+        }
+      }
+    },
+    "/jwt": {
+      "get": {
+        "summary": "jwt verification and get login user detail",
+        "description": "jwt verification and get login user detail",
+        "produces": ["application/json"],
+
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/post": {
+      "post": {
+        "tags": ["Media"],
+        "summary": "Upload Image",
+        "description": "Uploads a Media file to the server.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "image": {
+                    "type": "string",
+                    "format": "base64"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Your password successfully changed!!",
+            "content": {
+              "application/json": { "type": "string" }
+            }
+          },
+
+          "400": {
+            "description": "User with given email already exist!"
+          }
+        }
+      }
+    }
+  }
+}
