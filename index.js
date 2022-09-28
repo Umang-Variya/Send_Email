@@ -10,7 +10,7 @@ const Chat = require("./app/model/chat");
 const Noti = require('./app/model/notification')
 const connect = require("./app/config/db");
 var localStorage = require('node-localstorage').LocalStorage;
-
+const port = process.env.PORT || 3000;
 
 const {
   createServer
@@ -130,4 +130,4 @@ app.use('/api', router)
 
 console.log("========here");
 
-httpServer.listen(3001, () => console.log("Server start..."))
+httpServer.listen(port, () => console.log("Server start..."))
